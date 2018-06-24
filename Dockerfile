@@ -8,9 +8,9 @@ RUN apt-get update \
     libmcrypt-dev \
     libxml2-dev \
     git \
-  && docker-php-ext-install pdo_mysql mysqli mbstring iconv zip xml bcmath
+  && docker-php-ext-install pdo_mysql mysqli mbstring iconv zip xml bcmath opcache
 
-RUN apt-get -y install mc htop nodejs npm
+RUN apt-get -y install mc htop
 
 # xdebug
 RUN pecl install xdebug
@@ -31,6 +31,7 @@ RUN version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
 
 # setup Composer
 RUN curl -sS https://getcomposer.org/installer | php \
-    && mv composer.phar /usr/local/bin/composer
+    && mv composer.phar /usr/local/bin/composer \
+    && composer global require hirak/prestissimo
 
 RUN a2enmod rewrite
