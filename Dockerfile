@@ -10,6 +10,8 @@ RUN apt-get update \
     git \
   && docker-php-ext-install pdo_mysql mysqli mbstring iconv zip xml bcmath opcache
 
+RUN docker-php-ext-install -j$(nproc) gd
+
 RUN apt-get -y install mc htop
 
 # xdebug
